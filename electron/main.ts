@@ -1,78 +1,72 @@
-import { app, BrowserWindow } from "electron";
-import * as path from "path";
-import * as isDev from "electron-is-dev";
+import { app, BrowserWindow } from 'electron'
+import * as path from 'path'
+import * as isDev from 'electron-is-dev'
 import installExtension, {
-	REACT_DEVELOPER_TOOLS,
-} from "electron-devtools-installer";
+    REACT_DEVELOPER_TOOLS,
+} from 'electron-devtools-installer'
 
-const IPFS = require("ipfs");
+import * as ipfs from './ipfs'
 
-let win: BrowserWindow | null = null;
+let win: BrowserWindow | null = null
 
 function createWindow() {
-	win = new BrowserWindow({
-		width: 800,
-		height: 600,
-		webPreferences: {
-			nodeIntegration: true,
-		},
-	});
+    win = new BrowserWindow({
+        width: 800,
+        height: 600,
+        webPreferences: {
+            nodeIntegration: true,
+        },
+    })
 
-	if (isDev) {
-		win.loadURL("http://localhost:3000/index.html");
-	} else {
-		// 'build/index.html'
-		win.loadURL(`file://${__dirname}/../index.html`);
-	}
+    if (isDev) {
+        win.loadURL('http://localhost:3000/index.html')
+    } else {
+        // 'build/index.html'
+        win.loadURL(`file://${__dirname}/../index.html`)
+    }
 
-	win.on("closed", () => (win = null));
+    win.on('closed', () => (win = null))
 
-	// Hot Reloading
-	if (isDev) {
-		// 'node_modules/.bin/electronPath'
-		require("electron-reload")(__dirname, {
-			electron: path.join(
-				__dirname,
-				"..",
-				"..",
-				"node_modules",
-				".bin",
-				"electron"
-			),
-			forceHardReset: true,
-			hardResetMethod: "exit",
-		});
-	}
+    // Hot Reloading
+    if (isDev) {
+        // 'node_modules/.bin/electronPath'
+        require('electron-reload')(__dirname, {
+            electron: path.join(
+                __dirname,
+                '..',
+                '..',
+                'node_modules',
+                '.bin',
+                'electron'
+            ),
+            forceHardReset: true,
+            hardResetMethod: 'exit',
+        })
+    }
 
-	// DevTools
-	installExtension(REACT_DEVELOPER_TOOLS)
-		.then((name) => console.log(`Added Extension:  ${name}`))
-		.catch((err) => console.log("An error occurred: ", err));
+    // DevTools
+    installExtension(REACT_DEVELOPER_TOOLS)
+        .then((name) => console.log(`Added Extension:  ${name}`))
+        .catch((err) => console.log('An error occurred: ', err))
 
-	if (isDev) {
-		win.webContents.openDevTools();
-	}
+    if (isDev) {
+        win.webContents.openDevTools()
+    }
 }
 
-app.on("ready", async () => {
-	createWindow();
+app.on('ready', async () => {
+    createWindow()
 
-	try {
-		const node = await IPFS.create();
-		const id = await node.id();
-		console.log(id);
-	} catch (err) {
-		console.error(err);
-	}
-});
-app.on("window-all-closed", () => {
-	if (process.platform !== "darwin") {
-		app.quit();
-	}
-});
+    ipfs.startNode()
+})
+app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') {
+        app.quit()
+    }
+})
 
-app.on("activate", () => {
-	if (win === null) {
-		createWindow();
-	}
-});
+app.on('activate', () => {
+    if (win === null) {
+        createWindow()
+    }
+})

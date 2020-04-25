@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import logo from './logo.svg'
+import './App.css'
+import { Remote } from 'electron'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+declare global {
+    interface Window {
+        require: (
+            module: 'electron'
+        ) => {
+            remote: Remote
+        }
+    }
 }
 
-export default App;
+const { remote } = window.require('electron')
+const ipfs = remote.require('./ipfs')
+
+async function getIPFSStatus() {
+    console.log('Getting Node ID')
+    if (!ipfs.node) {
+        console.log('Node not started')
+    } else {
+        const id = await ipfs.node.id()
+        console.log(id)
+    }
+}
+
+function App() {
+    return (
+        <div className="App">
+            <div>
+                <button onClick={getIPFSStatus}>Get IPFS Status</button>
+            </div>
+        </div>
+    )
+}
+
+export default App
