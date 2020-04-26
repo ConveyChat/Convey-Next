@@ -1,4 +1,5 @@
-const IPFS = require('ipfs')
+// @ts-ignore
+import * as IPFS from 'ipfs'
 
 export var node: any = null
 
