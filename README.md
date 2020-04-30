@@ -2,7 +2,7 @@
 
 ## Available Scripts in addition to the existing ones
 
-### `yarn electron:dev`
+### `yarn electron:dev-windows` and `yarn electron:dev-mac`
 
 Runs the Electron app in the development mode.
 
