@@ -5,7 +5,7 @@ import installExtension, {
     REACT_DEVELOPER_TOOLS,
 } from 'electron-devtools-installer'
 
-import * as ipfs from './ipfs'
+import * as ipfs from './IPFS/ipfs'
 
 let win: BrowserWindow | null = null
 
@@ -57,8 +57,9 @@ function createWindow() {
 app.on('ready', async () => {
     createWindow()
 
-    ipfs.startNode()
+    await ipfs.startNode()
 })
+
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit()
