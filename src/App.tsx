@@ -1,7 +1,6 @@
-import React from 'react'
-import logo from './logo.svg'
-import './App.css'
 import { Remote } from 'electron'
+import React from 'react'
+import Main from './screens/Main/main'
 
 declare global {
     interface Window {
@@ -27,13 +26,7 @@ async function getIPFSStatus() {
 }
 
 function App() {
-    return (
-        <div className="App">
-            <div>
-                <button onClick={getIPFSStatus}>Get IPFS Status</button>
-            </div>
-        </div>
-    )
+    return <Main />
 }
 
 export default App
