@@ -1,0 +1,18 @@
+.app {
+    display: grid;
+    grid-template-columns: 15% 40% 45%;
+
+    height: 100vh;
+}
+
+.app__sidebar {
+    border: 2px solid red;
+}
+
+.app__msglist {
+    border: 2px solid blue;
+}
+
+.app__msgviewer {
+    border: 2px solid green;
+}

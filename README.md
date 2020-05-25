@@ -1,3 +1,11 @@
+# Convey Frontend
+
+### Setup
+
+After doing a `yarn install`, delete `node_modules/@types/bn.js/node_modules/`.
+
+---
+
 [Create React App + Typescript + Electron](https://github.com/yhirose/react-typescript-electron-sample-with-create-react-app-and-electron-builder)
 
 ## Available Scripts in addition to the existing ones

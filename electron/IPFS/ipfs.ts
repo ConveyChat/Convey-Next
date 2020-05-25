@@ -1,6 +1,9 @@
 // @ts-ignore
 import * as IPFS from 'ipfs'
 
+//@ts-ignore
+import * as IPFSHTTPClient from 'ipfs-http-client'
+
 export var ipfs: any = null
 
 export async function startNode() {
@@ -13,18 +16,28 @@ export async function startNode() {
     }
 }
 
+export async function startRemoteNode(host: string) {
+    try {
+        ipfs = await IPFSHTTPClient(host)
+        const version = await ipfs.version()
+        console.log(version)
+    } catch (err) {
+        console.error(err)
+    }
+}
+
 // Pins a string to IPFS and returns the IPFS hash
 export async function pinStringMessage(message: string) {
     try {
-        let bufferedString = Buffer.from(message);
+        let bufferedString = Buffer.from(message)
 
-        let result = [];
+        let result = []
         for await (const file of ipfs.add(bufferedString, { pin: true })) {
-            result.push(file);
+            result.push(file)
         }
 
-        console.log(result);
-        return result[0].path;
+        console.log(result)
+        return result[0].path
     } catch (err) {
         console.error(err)
     }
@@ -32,14 +45,14 @@ export async function pinStringMessage(message: string) {
 
 export async function retrieveStringMessage(ipfsPath: string) {
     try {
-        const chunks = [];
+        const chunks = []
         for await (const chunk of ipfs.cat(ipfsPath)) {
-            chunks.push(chunk);
+            chunks.push(chunk)
         }
 
         const result: string = Buffer.concat(chunks).toString()
         console.log(`Retrieved message: ${result}`)
-        return result;
+        return result
     } catch (err) {
         console.error(err)
     }
