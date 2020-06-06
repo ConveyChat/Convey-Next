@@ -1,8 +1,8 @@
 import { Remote } from 'electron'
-import React from 'react'
 import Main from './screens/Main/main'
 import { Provider } from 'react-redux'
 import store from './store'
+const React = require('react')
 
 declare global {
     interface Window {

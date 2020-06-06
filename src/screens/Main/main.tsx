@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import Sidebar from '../../components/Sidebar/sidebar'
+import SideBar from '../../components/Sidebar/sidebar'
 import MsgList from '../../components/MsgList/msglist'
 import MsgViewer from '../../components/MsgViewer/msgviewer'
 
@@ -10,6 +10,13 @@ import { setText, clearText } from '../../actions/hello'
 
 function Main(props: any) {
     const [textValue, setTextValue] = useState(props.text)
+
+    const items = [
+        { name: 'compose', label: 'Compose' },
+        { name: 'inbox', label: 'Inbox' },
+        { name: 'sent', label: 'Sent' },
+        { name: 'saved', label: 'Saved' },
+        { name: 'settings', label: 'Settings' }]
 
     function onUpdateClick() {
         props.updateText(
@@ -25,16 +32,16 @@ function Main(props: any) {
     return (
         <div className={Styles.app}>
             <div className={Styles.app__sidebar}>
-                <h1 style={{ color: 'white' }}>Redux</h1>
-                <input
+                <h1 className={Styles.app__sidebar__title}>Convey</h1>
+                {/* <input
                     type="text"
                     id="textInput"
                     value={textValue}
                     onChange={(e: any) => setTextValue(e.target.value)}
                 ></input>
                 <button onClick={onUpdateClick}>Update</button>
-                <button onClick={onClearClick}>Clear</button>
-                <Sidebar />
+                <button onClick={onClearClick}>Clear</button> */}
+                <SideBar items ={items}/>
             </div>
             <div className={Styles.app__msglist}>
                 <MsgList />

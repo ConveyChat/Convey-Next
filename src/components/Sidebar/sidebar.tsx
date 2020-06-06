@@ -1,11 +1,20 @@
-import React from 'react'
-
 import Styles from './sidebar.module.css'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+const React = require('react');
 
-export default function Main() {
+export default function sidebar({items }: {items: any}) {
     return (
-        <div>
-            <h1>Sidebar</h1>
-        </div>
+        <div className="sidebar">
+      <List disablePadding dense>
+        {items.map(({ label, name, ...rest }: {label: any, name: any}) => (
+          <ListItem key={name} button {...rest}>
+            <ListItemText>{label}</ListItemText>
+          </ListItem>
+        ))}
+      </List>
+    </div>
     )
 }
+

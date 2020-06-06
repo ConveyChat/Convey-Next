@@ -7,6 +7,7 @@
 
 .app__sidebar {
     border: 2px solid red;
+    max-width: 240px;
 }
 
 .app__msglist {
@@ -15,4 +16,8 @@
 
 .app__msgviewer {
     border: 2px solid green;
+}
+
+.app__sidebar__title {
+    color: black;
 }
