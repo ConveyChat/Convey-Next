@@ -7,16 +7,35 @@ import MsgViewer from '../../components/MsgViewer/msgviewer'
 import Styles from './main.module.css'
 import { connect } from 'react-redux'
 import { setText, clearText } from '../../actions/hello'
+import sidebar from '../../components/Sidebar/sidebar'
 
 function Main(props: any) {
     const [textValue, setTextValue] = useState(props.text)
 
-    const items = [
+    const sidebarItems = [
         { name: 'compose', label: 'Compose' },
         { name: 'inbox', label: 'Inbox' },
         { name: 'sent', label: 'Sent' },
         { name: 'saved', label: 'Saved' },
-        { name: 'settings', label: 'Settings' }]
+        { name: 'settings', label: 'Settings' },
+    ]
+
+    const messageItems = [
+        {
+            tag: 'DAPP',
+            sender: 'Ethereum Name Services',
+            subject: 'Domain Expiring Soon',
+            content: 'This is the content of the message right now',
+            timestamp: '15:44',
+        },
+        {
+            tag: 'DAPP',
+            sender: 'Ethereum Name Services',
+            subject: 'Domain Expiring Soon',
+            content: 'This is the content of the message right now',
+            timestamp: '14:44',
+        },
+    ]
 
     function onUpdateClick() {
         props.updateText(
@@ -41,10 +60,10 @@ function Main(props: any) {
                 ></input>
                 <button onClick={onUpdateClick}>Update</button>
                 <button onClick={onClearClick}>Clear</button> */}
-                <SideBar items ={items}/>
+                <SideBar items={sidebarItems} />
             </div>
             <div className={Styles.app__msglist}>
-                <MsgList />
+                <MsgList items={messageItems} />
             </div>
             <div className={Styles.app__msgviewer}>
                 <MsgViewer />

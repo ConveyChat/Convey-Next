@@ -4,11 +4,12 @@ import Styles from './msglist.module.css'
 
 import MsgItem from './MsgItem/msgitem'
 
-export default function MsgList() {
+export default function MsgList({ items }: { items: any }) {
     return (
         <div>
-            <h1>MsgList</h1>
-            <MsgItem />
+            {items.map((item: any) => {
+                return <MsgItem {...item} />
+            })}
         </div>
     )
 }
