@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 
 import SideBar from '../../components/Sidebar/sidebar'
+
+import Searchbar from '../../components/Searchbar/searchbar'
 import MsgList from '../../components/MsgList/msglist'
 import MsgViewer from '../../components/MsgViewer/msgviewer'
 
@@ -11,6 +13,7 @@ import sidebar from '../../components/Sidebar/sidebar'
 
 function Main(props: any) {
     const [textValue, setTextValue] = useState(props.text)
+    const [searchbarValue, setSearchbarValue] = useState('')
 
     const sidebarItems = [
         { name: 'compose', label: 'Compose' },
@@ -48,6 +51,10 @@ function Main(props: any) {
         props.clearText()
     }
 
+    function handleSearchbarChange(event: any) {
+        setSearchbarValue(event.target.value)
+    }
+
     return (
         <div className={Styles.app}>
             <div className={Styles.app__sidebar}>
@@ -63,6 +70,9 @@ function Main(props: any) {
                 <SideBar items={sidebarItems} />
             </div>
             <div className={Styles.app__msglist}>
+                <Searchbar
+                    handleSearchbarChange={(e: any) => handleSearchbarChange(e)}
+                />
                 <MsgList items={messageItems} />
             </div>
             <div className={Styles.app__msgviewer}>
