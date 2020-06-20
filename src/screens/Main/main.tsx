@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { shallowEqual, useSelector } from 'react-redux'
 
 import SideBar from '../../components/Sidebar/sidebar'
 import Searchbar from '../../components/Searchbar/searchbar'
@@ -9,13 +8,11 @@ import MsgViewer from '../../components/MsgViewer/msgviewer'
 import Styles from './main.module.css'
 
 import { connect } from 'react-redux'
-import { setText, clearText } from '../../actions/hello'
 import { setMessages } from '../../actions/message'
 
 import { Wallet, providers } from 'ethers'
 
 function Main(props: any) {
-    const [textValue, setTextValue] = useState(props.text)
     const [searchbarValue, setSearchbarValue] = useState('')
 
     useEffect(() => {
@@ -37,19 +34,8 @@ function Main(props: any) {
         ])
     }, [])
 
-    function onUpdateClick() {
-        props.updateText(
-            (document.getElementById('textInput') as HTMLInputElement).value
-        )
-    }
-
-    function onClearClick() {
-        setTextValue('')
-        props.clearText()
-    }
-
     const provider: providers.InfuraProvider = new providers.InfuraProvider(
-        'ropsten',
+        'kovan',
         '2984b77b549e4960a6383b2d769fbf6e'
     )
 
@@ -84,14 +70,6 @@ function Main(props: any) {
         <div className={Styles.app}>
             <div className={Styles.app__sidebar}>
                 <h1 className={Styles.app__sidebar__title}>Convey</h1>
-                {/* <input
-                    type="text"
-                    id="textInput"
-                    value={textValue}
-                    onChange={(e: any) => setTextValue(e.target.value)}
-                ></input>
-                <button onClick={onUpdateClick}>Update</button>
-                <button onClick={onClearClick}>Clear</button> */}
                 <SideBar items={sidebarItems} />
             </div>
             <div className={Styles.app__msglist}>
@@ -109,15 +87,12 @@ function Main(props: any) {
 
 const mapStateToProps = (state: any) => {
     return {
-        text: state.hello.text,
         messageItems: state.messages.messages,
     }
 }
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        updateText: (text: string) => dispatch(setText(text)),
-        clearText: () => dispatch(clearText()),
         setMessages: (messages: any[]) => dispatch(setMessages(messages)),
     }
 }

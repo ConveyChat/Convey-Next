@@ -28,7 +28,10 @@ const { remote } = window.require('electron')
 // }
 
 store.subscribe(() => {
-    console.log('[State Change] New Text: ', store.getState()?.hello.text)
+    console.log(
+        '[State Change] New Messages: ',
+        store.getState()?.messages.messages
+    )
 })
 
 function App() {
