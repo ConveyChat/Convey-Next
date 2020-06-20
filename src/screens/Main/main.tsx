@@ -66,11 +66,33 @@ function Main(props: any) {
         )
     })
 
+    const handleNewComposeWindow = () => {
+        const remote = window.require('electron').remote
+        const BrowserWindow = remote.BrowserWindow
+        const win = new BrowserWindow({
+            height: 600,
+            width: 800,
+            frame: true,
+            webPreferences: {
+                nodeIntegration: true,
+            },
+        })
+        // if (isDev) {
+        win.loadURL('http://localhost:3000/index.html#/compose')
+        // } else {
+        //     // 'build/index.html'
+        //     win.loadURL(`file://${__dirname}/../index.html`)
+        // }
+    }
+
     return (
         <div className={Styles.app}>
             <div className={Styles.app__sidebar}>
                 <h1 className={Styles.app__sidebar__title}>Convey</h1>
                 <SideBar items={sidebarItems} />
+                <button onClick={() => handleNewComposeWindow()}>
+                    Compose
+                </button>
             </div>
             <div className={Styles.app__msglist}>
                 <Searchbar

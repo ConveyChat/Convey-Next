@@ -1,0 +1,1 @@
+@RD /S /Q "%~dp0\node_modules\@types\bn.js\node_modules"
