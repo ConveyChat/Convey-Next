@@ -9,7 +9,6 @@ import MsgViewer from '../../components/MsgViewer/msgviewer'
 import Styles from './main.module.css'
 import { connect } from 'react-redux'
 import { setText, clearText } from '../../actions/hello'
-import sidebar from '../../components/Sidebar/sidebar'
 
 function Main(props: any) {
     const [textValue, setTextValue] = useState(props.text)
@@ -67,7 +66,7 @@ function Main(props: any) {
                 ></input>
                 <button onClick={onUpdateClick}>Update</button>
                 <button onClick={onClearClick}>Clear</button> */}
-                <SideBar items={sidebarItems} />
+                <SideBar/>
             </div>
             <div className={Styles.app__msglist}>
                 <Searchbar
