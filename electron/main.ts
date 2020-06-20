@@ -6,6 +6,7 @@ import installExtension, {
 } from 'electron-devtools-installer'
 
 import * as ipfs from './IPFS/ipfs'
+import './api'
 
 let win: BrowserWindow | null = null
 

@@ -66,11 +66,19 @@ function Main(props: any) {
         )
     })
 
+    function testAPI() {
+        fetch('http://localhost:5000/')
+            .then((res) => res.json())
+            .then((res) => console.log(res))
+            .catch((e) => console.error(e))
+    }
+
     return (
         <div className={Styles.app}>
             <div className={Styles.app__sidebar}>
                 <h1 className={Styles.app__sidebar__title}>Convey</h1>
                 <SideBar items={sidebarItems} />
+                <button onClick={testAPI}>test API</button>
             </div>
             <div className={Styles.app__msglist}>
                 <Searchbar
