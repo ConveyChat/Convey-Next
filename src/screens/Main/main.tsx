@@ -1,19 +1,32 @@
 import React, { useState } from 'react'
 
 import SideBar from '../../components/Sidebar/sidebar'
-
 import Searchbar from '../../components/Searchbar/searchbar'
 import MsgList from '../../components/MsgList/msglist'
 import MsgViewer from '../../components/MsgViewer/msgviewer'
 
 import Styles from './main.module.css'
+
 import { connect } from 'react-redux'
 import { setText, clearText } from '../../actions/hello'
-import sidebar from '../../components/Sidebar/sidebar'
+
+import { Wallet, providers } from 'ethers'
 
 function Main(props: any) {
     const [textValue, setTextValue] = useState(props.text)
     const [searchbarValue, setSearchbarValue] = useState('')
+
+    const provider: providers.InfuraProvider = new providers.InfuraProvider(
+        'ropsten',
+        '2984b77b549e4960a6383b2d769fbf6e'
+    )
+
+    const wallet: Wallet = new Wallet(
+        '0xf300cb1461fabe3a4057c0b3705944993966003d174bd83cbd8a1d438ff9f4a1',
+        provider
+    )
+
+    console.log(wallet.privateKey)
 
     const sidebarItems = [
         { name: 'compose', label: 'Compose' },
