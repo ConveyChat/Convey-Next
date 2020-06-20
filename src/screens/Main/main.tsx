@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { shallowEqual, useSelector } from 'react-redux'
 
 import SideBar from '../../components/Sidebar/sidebar'
 import Searchbar from '../../components/Searchbar/searchbar'
@@ -9,12 +10,32 @@ import Styles from './main.module.css'
 
 import { connect } from 'react-redux'
 import { setText, clearText } from '../../actions/hello'
+import { setMessages } from '../../actions/message'
 
 import { Wallet, providers } from 'ethers'
 
 function Main(props: any) {
     const [textValue, setTextValue] = useState(props.text)
     const [searchbarValue, setSearchbarValue] = useState('')
+
+    useEffect(() => {
+        props.setMessages([
+            {
+                tag: 'DAPP',
+                sender: 'Ethereum Name Services',
+                subject: 'Domain Expiring Soon',
+                content: 'This is the content of the message right now',
+                timestamp: '15:44',
+            },
+            {
+                tag: 'DAPP',
+                sender: 'Ryan Ouyang',
+                subject: 'Test test test',
+                content: 'This is some test content for searching',
+                timestamp: '14:44',
+            },
+        ])
+    }, [])
 
     function onUpdateClick() {
         props.updateText(
@@ -47,28 +68,11 @@ function Main(props: any) {
         { name: 'settings', label: 'Settings' },
     ]
 
-    const [messageItems, setMessageItems] = useState([
-        {
-            tag: 'DAPP',
-            sender: 'Ethereum Name Services',
-            subject: 'Domain Expiring Soon',
-            content: 'This is the content of the message right now',
-            timestamp: '15:44',
-        },
-        {
-            tag: 'DAPP',
-            sender: 'Ryan Ouyang',
-            subject: 'Test test test',
-            content: 'This is some test content for searching',
-            timestamp: '14:44',
-        },
-    ])
-
     function handleSearchbarChange(event: any) {
         setSearchbarValue(event.target.value)
     }
 
-    const filteredItems = messageItems.filter((message) => {
+    const filteredItems = props.messageItems.filter((message: any) => {
         return (
             message.content.toLowerCase().includes(searchbarValue) ||
             message.sender.toLowerCase().includes(searchbarValue) ||
@@ -106,6 +110,7 @@ function Main(props: any) {
 const mapStateToProps = (state: any) => {
     return {
         text: state.hello.text,
+        messageItems: state.messages.messages,
     }
 }
 
@@ -113,6 +118,7 @@ const mapDispatchToProps = (dispatch: any) => {
     return {
         updateText: (text: string) => dispatch(setText(text)),
         clearText: () => dispatch(clearText()),
+        setMessages: (messages: any[]) => dispatch(setMessages(messages)),
     }
 }
 
