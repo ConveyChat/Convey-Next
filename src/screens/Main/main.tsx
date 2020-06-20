@@ -16,6 +16,17 @@ function Main(props: any) {
     const [textValue, setTextValue] = useState(props.text)
     const [searchbarValue, setSearchbarValue] = useState('')
 
+    function onUpdateClick() {
+        props.updateText(
+            (document.getElementById('textInput') as HTMLInputElement).value
+        )
+    }
+
+    function onClearClick() {
+        setTextValue('')
+        props.clearText()
+    }
+
     const provider: providers.InfuraProvider = new providers.InfuraProvider(
         'ropsten',
         '2984b77b549e4960a6383b2d769fbf6e'
@@ -36,7 +47,7 @@ function Main(props: any) {
         { name: 'settings', label: 'Settings' },
     ]
 
-    const messageItems = [
+    const [messageItems, setMessageItems] = useState([
         {
             tag: 'DAPP',
             sender: 'Ethereum Name Services',
@@ -46,27 +57,24 @@ function Main(props: any) {
         },
         {
             tag: 'DAPP',
-            sender: 'Ethereum Name Services',
-            subject: 'Domain Expiring Soon',
-            content: 'This is the content of the message right now',
+            sender: 'Ryan Ouyang',
+            subject: 'Test test test',
+            content: 'This is some test content for searching',
             timestamp: '14:44',
         },
-    ]
-
-    function onUpdateClick() {
-        props.updateText(
-            (document.getElementById('textInput') as HTMLInputElement).value
-        )
-    }
-
-    function onClearClick() {
-        setTextValue('')
-        props.clearText()
-    }
+    ])
 
     function handleSearchbarChange(event: any) {
         setSearchbarValue(event.target.value)
     }
+
+    const filteredItems = messageItems.filter((message) => {
+        return (
+            message.content.toLowerCase().includes(searchbarValue) ||
+            message.sender.toLowerCase().includes(searchbarValue) ||
+            message.subject.toLowerCase().includes(searchbarValue)
+        )
+    })
 
     return (
         <div className={Styles.app}>
@@ -86,7 +94,7 @@ function Main(props: any) {
                 <Searchbar
                     handleSearchbarChange={(e: any) => handleSearchbarChange(e)}
                 />
-                <MsgList items={messageItems} />
+                <MsgList items={filteredItems} />
             </div>
             <div className={Styles.app__msgviewer}>
                 <MsgViewer />
