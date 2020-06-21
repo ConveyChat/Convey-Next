@@ -35,12 +35,12 @@ const { remote } = window.require('electron')
 //     }
 // }
 
-store.subscribe(() => {
-    console.log(
-        '[State Change] New Messages: ',
-        store.getState()?.messages.messages
-    )
-})
+// store.subscribe(() => {
+//     console.log(
+//         '[State Change] New Messages: ',
+//         store.getState()?.messages.messages
+//     )
+// })
 
 function App() {
     return (

@@ -3,10 +3,12 @@ import { Reducer } from 'redux'
 
 export interface MessageState {
     messages: any[]
+    searchValue: string
 }
 
 const initialState: MessageState = {
     messages: [],
+    searchValue: '',
 }
 
 export const messageReducer: Reducer<MessageState> = (
@@ -18,6 +20,11 @@ export const messageReducer: Reducer<MessageState> = (
             return {
                 ...state,
                 messages: action.payload.messages,
+            }
+        case MessageActions.SET_SEARCHVALUE:
+            return {
+                ...state,
+                searchValue: action.payload.searchValue,
             }
         default:
             return state

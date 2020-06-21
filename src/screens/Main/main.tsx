@@ -13,8 +13,6 @@ import { setMessages } from '../../actions/message'
 import { Wallet, providers } from 'ethers'
 
 function Main(props: any) {
-    const [searchbarValue, setSearchbarValue] = useState('')
-
     useEffect(() => {
         props.setMessages([
             {
@@ -54,25 +52,6 @@ function Main(props: any) {
         { name: 'settings', label: 'Settings' },
     ]
 
-    function handleSearchbarChange(event: any) {
-        setSearchbarValue(event.target.value)
-    }
-
-    const filteredItems = props.messageItems.filter((message: any) => {
-        return (
-            message.content.toLowerCase().includes(searchbarValue) ||
-            message.sender.toLowerCase().includes(searchbarValue) ||
-            message.subject.toLowerCase().includes(searchbarValue)
-        )
-    })
-
-    function testAPI() {
-        fetch('http://localhost:5000/')
-            .then((res) => res.json())
-            .then((res) => console.log(res))
-            .catch((e) => console.error(e))
-    }
-
     const handleNewComposeWindow = () => {
         const remote = window.require('electron').remote
         const BrowserWindow = remote.BrowserWindow
@@ -97,16 +76,13 @@ function Main(props: any) {
             <div className={Styles.app__sidebar}>
                 <h1 className={Styles.app__sidebar__title}>Convey</h1>
                 <SideBar items={sidebarItems} />
-                <button onClick={testAPI}>test API</button>
                 <button onClick={() => handleNewComposeWindow()}>
                     Compose
                 </button>
             </div>
             <div className={Styles.app__msglist}>
-                <Searchbar
-                    handleSearchbarChange={(e: any) => handleSearchbarChange(e)}
-                />
-                <MsgList items={filteredItems} />
+                <Searchbar />
+                <MsgList />
             </div>
             <div className={Styles.app__msgviewer}>
                 <MsgViewer />
