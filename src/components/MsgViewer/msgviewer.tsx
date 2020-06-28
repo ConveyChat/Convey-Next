@@ -6,14 +6,17 @@ import { connect } from 'react-redux'
 
 function MsgViewer(props: any) {
     const data = props.activeMessage
+    console.log(data)
+    const content = data ? (
+        <>
+            <h1>{data.subject}</h1>
+            <p>{data.content}</p>
+        </>
+    ) : null
 
-    return data ? (
-        <div>
-            <h1>Yay there's a message</h1>
-        </div>
-    ) : (
-        <div>
-            <p>Please select a message from the left</p>
+    return (
+        <div className={Styles.container}>
+            {content ? content : <p>Please select a message from the left</p>}
         </div>
     )
 }

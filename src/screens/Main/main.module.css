@@ -1,6 +1,6 @@
 .app {
     display: grid;
-    grid-template-columns: 160px 30% auto;
+    grid-template-columns: 110px 30% auto;
 
     height: 100vh;
 }
@@ -13,8 +13,4 @@
 }
 
 .app__msgviewer {
-}
-
-.app__sidebar__title {
-    color: black;
 }
