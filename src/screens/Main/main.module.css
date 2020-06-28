@@ -6,15 +6,13 @@
 }
 
 .app__sidebar {
-    border: 2px solid red;
+    background-color: #323232;
 }
 
 .app__msglist {
-    border: 2px solid blue;
 }
 
 .app__msgviewer {
-    border: 2px solid green;
 }
 
 .app__sidebar__title {

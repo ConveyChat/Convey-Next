@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Styles from './mailviewer.module.css'
+import Styles from './msgviewer.module.css'
 
 import { connect } from 'react-redux'
 

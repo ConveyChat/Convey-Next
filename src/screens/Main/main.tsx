@@ -44,14 +44,6 @@ function Main(props: any) {
 
     console.log(wallet.privateKey)
 
-    const sidebarItems = [
-        { name: 'compose', label: 'Compose' },
-        { name: 'inbox', label: 'Inbox' },
-        { name: 'sent', label: 'Sent' },
-        { name: 'saved', label: 'Saved' },
-        { name: 'settings', label: 'Settings' },
-    ]
-
     const handleNewComposeWindow = () => {
         const remote = window.require('electron').remote
         const BrowserWindow = remote.BrowserWindow
@@ -74,8 +66,7 @@ function Main(props: any) {
     return (
         <div className={Styles.app}>
             <div className={Styles.app__sidebar}>
-                <h1 className={Styles.app__sidebar__title}>Convey</h1>
-                <SideBar items={sidebarItems} />
+                <SideBar />
                 <button onClick={() => handleNewComposeWindow()}>
                     Compose
                 </button>
