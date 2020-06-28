@@ -1,13 +1,12 @@
 .app {
     display: grid;
-    grid-template-columns: 15% 40% 45%;
+    grid-template-columns: 160px 30% auto;
 
     height: 100vh;
 }
 
 .app__sidebar {
     border: 2px solid red;
-    max-width: 240px;
 }
 
 .app__msglist {

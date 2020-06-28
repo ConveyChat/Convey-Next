@@ -3,6 +3,7 @@ import React from 'react'
 import Styles from './msglist.module.css'
 
 import { connect } from 'react-redux'
+import { setActiveMessage } from '../../actions/message'
 
 import MsgItem from './MsgItem/msgitem'
 
@@ -20,7 +21,11 @@ function MsgList(props: any) {
     return (
         <div>
             {filteredItems.map((item: any) => {
-                return <MsgItem {...item} />
+                return (
+                    <div onClick={(e: any) => props.setActiveMessage(item)}>
+                        <MsgItem {...item} />
+                    </div>
+                )
             })}
         </div>
     )
@@ -33,4 +38,10 @@ const mapStateToProps = (state: any) => {
     }
 }
 
-export default connect(mapStateToProps)(MsgList)
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        setActiveMessage: (item: any) => dispatch(setActiveMessage(item)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MsgList)
