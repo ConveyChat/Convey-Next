@@ -49,7 +49,7 @@ function Main(props: any) {
         const BrowserWindow = remote.BrowserWindow
         const win = new BrowserWindow({
             height: 600,
-            width: 800,
+            width: 1000,
             frame: true,
             webPreferences: {
                 nodeIntegration: true,

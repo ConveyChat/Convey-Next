@@ -7,10 +7,14 @@
 
 .app__sidebar {
     background-color: #323232;
+
+    border: 1px solid pink;
 }
 
 .app__msglist {
+    border: 1px solid purple;
 }
 
 .app__msgviewer {
+    border: 1px solid blue;
 }
