@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 
 function MsgViewer(props: any) {
     const data = props.activeMessage
-    console.log(data)
     const content = data ? (
         <>
             <h1>{data.subject}</h1>

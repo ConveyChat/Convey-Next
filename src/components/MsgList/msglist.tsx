@@ -20,9 +20,12 @@ function MsgList(props: any) {
 
     return (
         <div>
-            {filteredItems.map((item: any) => {
+            {filteredItems.map((item: any, key: number) => {
                 return (
-                    <div onClick={(e: any) => props.setActiveMessage(item)}>
+                    <div
+                        key={key}
+                        onClick={(e: any) => props.setActiveMessage(item)}
+                    >
                         <MsgItem {...item} />
                     </div>
                 )
