@@ -58,8 +58,8 @@ function createWindow() {
 app.on('ready', async () => {
     createWindow()
 
-    // await ipfs.startNode()
-    await ipfs.startRemoteNode('https://ipfs.infura.io:5001')
+    await ipfs.startNode()
+    // await ipfs.startRemoteNode('https://ipfs.infura.io:5001')
 })
 
 app.on('window-all-closed', () => {

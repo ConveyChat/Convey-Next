@@ -2,6 +2,8 @@ import React from 'react'
 
 import Styles from './compose.module.css'
 
+import * as Helpers from '../../helpers/helpers'
+
 interface State {
     reciever: string
     subject: string
@@ -25,6 +27,8 @@ class Compose extends React.Component<{}, State> {
     handleSend(e: any) {
         e.preventDefault()
         console.log(this.state)
+
+        Helpers.sendMessage(this.state.body, 'placeholder')
     }
 
     render() {

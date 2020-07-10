@@ -65,8 +65,6 @@ function Main(props: any) {
         // }
     }
 
-    console.log(props.wallet)
-
     return (
         <div className={Styles.app}>
             <div className={Styles.app__sidebar}>
