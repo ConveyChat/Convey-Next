@@ -43,6 +43,7 @@ function Main(props: any) {
             infuraKey
         )
         const currWallet: Wallet = new Wallet(privateKey, provider)
+
         props.setWallet(currWallet)
     }
 
@@ -64,6 +65,8 @@ function Main(props: any) {
         //     win.loadURL(`file://${__dirname}/../index.html`)
         // }
     }
+
+    console.log(props.wallet)
 
     return (
         <div className={Styles.app}>

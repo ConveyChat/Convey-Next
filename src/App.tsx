@@ -22,31 +22,16 @@ declare global {
     }
 }
 
-const { remote } = window.require('electron')
-// const ipfs = remote.require('./ipfs')
-
-// async function getIPFSStatus() {
-//     console.log('Getting Node ID')
-//     if (!ipfs.node) {
-//         console.log('Node not started')
-//     } else {
-//         const id = await ipfs.node.id()
-//         console.log(id)
-//     }
-// }
-
-// store.subscribe(() => {
-//     console.log(store.getState())
-// })
+store.subscribe(() => {
+    console.log(store.getState())
+})
 
 function App() {
     return (
         <Provider store={store}>
             <Router>
-                <Switch>
-                    <Route path="/compose" component={Compose} />
-                    <Route exact path="" component={Main} />
-                </Switch>
+                <Route exact path="/compose" component={Compose} />
+                <Route path="" component={Main} />
             </Router>
         </Provider>
     )

@@ -1,69 +1,78 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import Styles from './compose.module.css'
 
 import * as Helpers from '../../helpers/helpers'
 
-interface State {
-    reciever: string
-    subject: string
-    body: string
+import { connect } from 'react-redux'
+import { Wallet } from 'ethers'
+
+interface Props {
+    wallet: Wallet
 }
-class Compose extends React.Component<{}, State> {
-    constructor(props: any) {
-        super(props)
-        this.state = {
-            reciever: '',
-            subject: '',
-            body: '',
+
+function Compose(props: Props) {
+    const [recipient, setRecipient] = useState('')
+    const [subject, setSubject] = useState('')
+    const [body, setBody] = useState('')
+
+    const [showConfirmation, setShowConfirmation] = useState(false)
+    const [confirmation, setConfirmation] = useState(
+        'Message successfully sent!'
+    )
+
+    async function handleSend(e: any) {
+        e.preventDefault()
+
+        try {
+            await Helpers.sendMessage(body, recipient, props.wallet)
+        } catch (e) {
+            console.table(e)
+            setConfirmation(e.message)
+        } finally {
+            setShowConfirmation(true)
         }
     }
 
-    handleChange(e: any) {
-        e.preventDefault()
-        this.setState({ [e.target.name]: e.target.value } as State)
-    }
+    return (
+        <div className={Styles.container}>
+            <input
+                type="text"
+                name="reciever"
+                placeholder="To:"
+                onChange={(e) => setRecipient(e.target.value)}
+                className={Styles.reciever}
+            />
+            <input
+                type="text"
+                name="subject"
+                placeholder="Subject"
+                onChange={(e) => setSubject(e.target.value)}
+                className={Styles.subject}
+            />
+            <textarea
+                name="body"
+                placeholder="Your message here..."
+                onChange={(e) => setBody(e.target.value)}
+                className={Styles.body}
+            />
+            <button
+                type="submit"
+                className={Styles.sendButton}
+                onClick={(e) => handleSend(e)}
+            >
+                Send
+            </button>
 
-    handleSend(e: any) {
-        e.preventDefault()
-        console.log(this.state)
+            {showConfirmation && <span>{confirmation}</span>}
+        </div>
+    )
+}
 
-        Helpers.sendMessage(this.state.body, 'placeholder')
-    }
-
-    render() {
-        return (
-            <div className={Styles.container}>
-                <input
-                    type="text"
-                    name="reciever"
-                    placeholder="To:"
-                    onChange={(e) => this.handleChange(e)}
-                    className={Styles.reciever}
-                />
-                <input
-                    type="text"
-                    name="subject"
-                    placeholder="Subject"
-                    onChange={(e) => this.handleChange(e)}
-                    className={Styles.subject}
-                />
-                <textarea
-                    name="body"
-                    placeholder="Your message here..."
-                    onChange={(e) => this.handleChange(e)}
-                    className={Styles.body}
-                />
-                <button
-                    type="submit"
-                    className={Styles.sendButton}
-                    onClick={(e) => this.handleSend(e)}
-                >
-                    Send
-                </button>
-            </div>
-        )
+const mapStateToProps = (state: any) => {
+    return {
+        wallet: state.wallet.wallet,
     }
 }
 
-export default Compose
+export default connect(mapStateToProps)(Compose)
