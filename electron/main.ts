@@ -6,6 +6,7 @@ import installExtension, {
 } from 'electron-devtools-installer'
 import { ipcMain } from 'electron'
 import * as ipfs from './IPFS/ipfs'
+import * as ethereum from './ethereum/ethereum'
 import './api'
 
 let win: BrowserWindow | null = null

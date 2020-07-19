@@ -25,7 +25,7 @@ function Compose(props: Props) {
         e.preventDefault()
 
         try {
-            await Helpers.sendMessage(body, recipient, props.wallet)
+            await Helpers.sendMessage(body, recipient)
         } catch (e) {
             console.table(e)
             setConfirmation(e.message)
@@ -69,10 +69,4 @@ function Compose(props: Props) {
     )
 }
 
-const mapStateToProps = (state: any) => {
-    return {
-        wallet: state.wallet.wallet,
-    }
-}
-
-export default connect(mapStateToProps)(Compose)
+export default Compose
