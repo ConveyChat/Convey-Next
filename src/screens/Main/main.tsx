@@ -58,12 +58,8 @@ function Main(props: any) {
                 nodeIntegration: true,
             },
         })
-        // if (isDev) {
         win.loadURL('http://localhost:3000/index.html#/compose')
-        // } else {
-        //     // 'build/index.html'
-        //     win.loadURL(`file://${__dirname}/../index.html`)
-        // }
+        // win.loadURL(`file://${__dirname}/../index.html`)
     }
 
     console.log(props.wallet)

@@ -4,7 +4,6 @@ import Compose from './screens/Compose/compose'
 import { Provider } from 'react-redux'
 import store from './store'
 import React from 'react'
-
 import {
     HashRouter as Router,
     Switch,
@@ -12,12 +11,19 @@ import {
     RouteComponentProps,
 } from 'react-router-dom'
 
+const { ipcRenderer } = window.require('electron')
+
+ipcRenderer.send('ping', 'ping')
+ipcRenderer.on('pong', () => {
+    console.log('PONGED')
+})
 declare global {
     interface Window {
         require: (
             module: 'electron'
         ) => {
             remote: Remote
+            ipcRenderer: any
         }
     }
 }

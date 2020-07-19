@@ -4,7 +4,7 @@ import * as isDev from 'electron-is-dev'
 import installExtension, {
     REACT_DEVELOPER_TOOLS,
 } from 'electron-devtools-installer'
-
+import { ipcMain } from 'electron'
 import * as ipfs from './IPFS/ipfs'
 import './api'
 
@@ -72,4 +72,9 @@ app.on('activate', () => {
     if (win === null) {
         createWindow()
     }
+})
+
+ipcMain.on('ping', (event, arg) => {
+    console.log('PINGED')
+    event.reply('pong', 'pong')
 })
