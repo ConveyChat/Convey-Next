@@ -75,7 +75,19 @@ app.on('activate', () => {
     }
 })
 
-ipcMain.on('ping', (event, arg) => {
-    console.log('PINGED')
-    event.reply('pong', 'pong')
+ipcMain.on('open-compose-window', (event, arg) => {
+    let composeWin = new BrowserWindow({
+        height: 600,
+        width: 1000,
+        frame: true,
+        webPreferences: {
+            nodeIntegration: true,
+        },
+    })
+
+    if (isDev) {
+        composeWin.loadURL('http://localhost:3000/index.html#/compose')
+    } else {
+        composeWin.loadURL(`file://${__dirname}/../index.html#/compose`)
+    }
 })

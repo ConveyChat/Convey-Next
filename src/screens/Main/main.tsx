@@ -31,18 +31,8 @@ function Main(props: any) {
     }, [])
 
     const handleNewComposeWindow = () => {
-        const remote = window.require('electron').remote
-        const BrowserWindow = remote.BrowserWindow
-        const win = new BrowserWindow({
-            height: 600,
-            width: 1000,
-            frame: true,
-            webPreferences: {
-                nodeIntegration: true,
-            },
-        })
-        win.loadURL('http://localhost:3000/index.html#/compose')
-        // win.loadURL(`file://${__dirname}/../index.html`)
+        const { ipcRenderer } = window.require('electron')
+        ipcRenderer.send('open-compose-window', 'ping')
     }
 
     return (

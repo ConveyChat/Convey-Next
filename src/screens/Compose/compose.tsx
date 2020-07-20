@@ -4,7 +4,6 @@ import Styles from './compose.module.css'
 
 import * as Helpers from '../../helpers/helpers'
 
-import { connect } from 'react-redux'
 import { Wallet } from 'ethers'
 
 interface Props {

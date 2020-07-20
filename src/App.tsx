@@ -11,12 +11,6 @@ import {
     RouteComponentProps,
 } from 'react-router-dom'
 
-const { ipcRenderer } = window.require('electron')
-
-ipcRenderer.send('ping', 'ping')
-ipcRenderer.on('pong', () => {
-    console.log('PONGED')
-})
 declare global {
     interface Window {
         require: (
@@ -36,8 +30,10 @@ function App() {
     return (
         <Provider store={store}>
             <Router>
-                <Route exact path="/compose" component={Compose} />
-                <Route path="" component={Main} />
+                <Switch>
+                    <Route exact path="/compose" component={Compose} />
+                    <Route path="" component={Main} />
+                </Switch>
             </Router>
         </Provider>
     )
